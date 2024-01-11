@@ -4,7 +4,9 @@
 '''
 import logging
 import re
+import mysql.connector
 from typing import List
+from os import environ
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
@@ -67,6 +69,23 @@ def get_logger() -> logging.Logger:
     logger.addHandler(stream_handler)
 
     return logger
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    '''
+        helps establish a connection to mysql database
+    '''
+    username = environ.get("PERSONAL_DATA_DB_USERNAME", "root")
+    password = environ.get("PERSONAL_DATA_DB_PASSWORD", "")
+    host = environ.get("PERSONAL_DATA_DB_HOST", "localhost")
+    db_name = environ.get("PERSONAL_DATA_DB_NAME")
+
+    connect_credentials = mysql.connector.connection.MySQLConnection(
+                                                    user=username,
+                                                    password=password,
+                                                    host=host,
+                                                    database=db_name)
+    return connect_credentials
 
 
 if __name__ == '__main__':
