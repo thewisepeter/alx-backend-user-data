@@ -29,11 +29,10 @@ class Auth:
         if path in excluded_paths:
             return False
 
+        path = path.rstrip('/')
         for excluded_path in excluded_paths:
-            # Make the comparison slash tolerant
-            if path.rstrip('/') == excluded_path.rstrip('/'):
-                return False
-            elif path.startswith(excluded_path):
+            excluded_path = excluded_path.rstrip('/')  # Remove trailing slashes from the excluded path
+            if path == excluded_path or path.startswith(excluded_path):
                 return False
             elif excluded_path[-1] == "*" and path.startswith(excluded_path[:-1]):
                 return False
