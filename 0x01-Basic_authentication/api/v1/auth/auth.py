@@ -31,13 +31,12 @@ class Auth:
 
         for excluded_path in excluded_paths:
             # Make the comparison slash tolerant
-            if excluded_path.startswith(path): 
+            if path.rstrip('/') == excluded_path.rstrip('/'):
                 return False
             elif path.startswith(excluded_path):
                 return False
-            elif excluded_path[-1] == "*":
-                if path.startswith(excluded_path[:-1]):
-                    return False
+            elif excluded_path[-1] == "*" and path.startswith(excluded_path[:-1]):
+                return False
         return False
 
     def authorization_header(self, request=None) -> str:
