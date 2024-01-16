@@ -9,6 +9,7 @@ from models.user import User
 
 T = TypeVar('T')
 
+
 class BasicAuth(Auth):
     '''
         definition of the class basic-auth
@@ -101,7 +102,7 @@ class BasicAuth(Auth):
             return None
         except Exception:
             return None
-        
+
     def current_user(self, request=None) -> TypeVar('User'):
         """rectrieves a user
         """
