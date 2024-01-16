@@ -79,36 +79,25 @@ class BasicAuth(Auth):
             # Return None if decoding fails (invalid Base64)
             return None
 
-    def user_object_from_credentials(self, user_email: str, user_pwd: str) -> Optional[T]:
-        """
-        Returns the User instance based on user email and password.
+    def user_object_from_credentials(
+            self, user_email: str, user_pwd: str) -> TypeVar('User'):
+        """_summary_
 
         Args:
-            user_email (str): User email.
-            user_pwd (str): User password.
-
-        Returns:
-            TypeVar('User'): User instance or None.
-
-        Returns None if:
-        - user_email is None or not a string
-        - user_pwd is None or not a string
-        - No User instance with the given email is found in the database
-        - user_pwd is not the password of the User instance found
+                        self (_type_): _description_
         """
-        if not isinstance(user_email, str) or user_email is None:
+        if user_email is None or not isinstance(user_email, str):
+            return None
+        if user_pwd is None or not isinstance(user_pwd, str):
             return None
 
-        if not isinstance(user_pwd, str) or user_pwd is None:
+        try:
+            users = User.search({"email": user_email})
+            if not users or users == []:
+                return None
+            for user in users:
+                if user.is_valid_password(user_pwd):
+                    return user
             return None
-
-        # Assuming User.search is a class method that looks up users by email
-        user_instance = User.search(user_email)
-
-        if user_instance is None:
+        except Exception:
             return None
-
-        if not user_instance.is_valid_password(user_pwd):
-            return None
-
-        return user_instance
