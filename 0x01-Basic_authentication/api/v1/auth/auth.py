@@ -10,6 +10,7 @@ class Auth:
     '''
         class definition of the Auth
     '''
+
     def require_auth(
             self,
             path: str,
@@ -41,10 +42,10 @@ class Auth:
         '''
            returns None - request will be the Flask
            request object
-        
+
         if request is None:
             return None
-        
+
         header = request.headers.get('Authorization')
         if header:
             return header
