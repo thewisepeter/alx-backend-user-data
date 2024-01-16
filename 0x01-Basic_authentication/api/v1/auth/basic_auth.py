@@ -3,6 +3,7 @@
     module defining the basic_auth class
 '''
 from api.v1.auth.auth import Auth
+import base64
 
 
 class BasicAuth(Auth):
@@ -42,3 +43,35 @@ class BasicAuth(Auth):
         # Extract the value after "Basic "
         base64_part = authorization_header[6:]
         return base64_part
+
+    def decode_base64_authorization_header(
+            self,
+            base64_authorization_header: str
+            ) -> str:
+        """
+        Decodes the Base64 string base64_authorization_header.
+
+        Args:
+            base64_authorization_header (str): The Base64 string.
+
+        Returns:
+            str: The decoded value as UTF-8 string.
+
+        Returns None if:
+        - base64_authorization_header is None
+        - base64_authorization_header is not a string
+        - base64_authorization_header is not a valid Base64 (using try/except)
+        """
+        if base64_authorization_header is None or \
+                not isinstance(base64_authorization_header, str):
+            return None
+
+        try:
+            # Attempt to decode the Base64 string
+            decoded_value = base64.b64decode(
+                base64_authorization_header
+                ).decode('utf-8')
+            return decoded_value
+        except base64.binascii.Error:
+            # Return None if decoding fails (invalid Base64)
+            return None
