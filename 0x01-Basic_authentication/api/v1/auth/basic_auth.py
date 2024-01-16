@@ -4,7 +4,10 @@
 '''
 from api.v1.auth.auth import Auth
 import base64
+from typing import TypeVar, Optional
+from models.user import User
 
+T = TypeVar('T')
 
 class BasicAuth(Auth):
     '''
