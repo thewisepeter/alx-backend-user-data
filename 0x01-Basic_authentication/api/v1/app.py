@@ -41,6 +41,7 @@ def before_request():
             if auth.current_user(request) is None:
                 abort(403, description='Forbidden')
 
+
 @app.errorhandler(401)
 def unauthorized(error) -> str:
     """ unauthorized acccess handler
