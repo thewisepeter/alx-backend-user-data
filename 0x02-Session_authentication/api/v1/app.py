@@ -35,6 +35,7 @@ def before_request():
     if auth is None:
         pass
     else:
+        request.current_user = auth.current_user(request)
         excluded_list = ['/api/v1/status/',
                          '/api/v1/auth_session/login/',
                          '/api/v1/unauthorized/', '/api/v1/forbidden/']
