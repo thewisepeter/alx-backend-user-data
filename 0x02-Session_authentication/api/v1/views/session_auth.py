@@ -11,6 +11,9 @@ import os
 # Route for user login with session authentication
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def session_auth():
+    '''
+        method for handling session authentification
+    '''
     # Extract email and password from the request form
     email = request.form.get('email')
     password = request.form.get('password')
@@ -50,9 +53,9 @@ def session_auth():
 @app_views.route('/auth_session/logout',
                  methods=['DELETE'], strict_slashes=False)
 def logout():
-    """
-    Logout user
-    """
+    '''
+        Logout user
+    '''
     # Retrieve the authentication instance
     from api.v1.app import auth
 
