@@ -60,7 +60,7 @@ class DB:
         '''
             function that updates user's details
         '''
-        found_user = self.find_user_by(user_id=user_id)
+        found_user = self.find_user_by(id=user_id)
 
         for key, value in kwargs.items():
             if not hasattr(found_user, key):
