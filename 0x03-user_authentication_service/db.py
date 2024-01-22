@@ -38,5 +38,6 @@ class DB:
 
         # Add the new user to the session
         self._session.add(new_user)
+        self._session.commit()
 
         return new_user
