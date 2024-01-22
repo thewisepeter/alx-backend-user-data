@@ -1,8 +1,21 @@
 #!/bin/bash
-#this simplifies githubbing
-echo filename
+# This simplifies githubbing
+
+echo "Enter filename:"
 read varname
-chmod +x $varname
+
+# Make the file executable
+chmod +x "$varname"
+
+# Add all changes
 git add .
-git commit -m "implementation  of  $varname"
+
+# Prompt for a custom commit message
+echo "Enter commit message:"
+read commit_message
+
+# Commit changes with the custom message
+git commit -m "Implementation of $varname: $commit_message"
+
+# Push changes to the remote repository
 git push
