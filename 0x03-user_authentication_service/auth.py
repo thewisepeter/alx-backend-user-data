@@ -76,7 +76,7 @@ class Auth:
         except NoResultFound:
             return False
 
-    def get_user_from_session_id(self, session_id: str) -> User:
+    def get_user_from_session_id(self, session_id: str):
         '''
             method that finds user by session id
         '''
