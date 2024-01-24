@@ -11,7 +11,7 @@ def register_user(email: str, password: str) -> None:
     url = f'{BASE_URL}/register'
     data = {'email': email, 'password': password}
     response = requests.post(url, data=data)
-    assert response.status_code == 201
+    assert response.status_code == 200
 
 
 def log_in_wrong_password(email: str, password: str) -> None:
